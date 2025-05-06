@@ -49,68 +49,68 @@ function App() {
   return (
     
     
-        <Routes>
-          {/* 👨‍👧 Main parent route (with login + tabs) */}
-          <Route
-            path="/"
-            element={
-              !userId ? (
-                <Login onLogin={() => window.location.reload()} />
-              ) : (
-                <div className="app-container">
-                  <h1 className="app-title">💖 DadDrop</h1>
-    
-                  <div className="tab-buttons">
-                    <button
-                      className={activeTab === 'notes' ? 'tab active' : 'tab'}
-                      onClick={() => setActiveTab('notes')}
-                    >
-                      Daily Notes
-                    </button>
-                    <button
-                      className={activeTab === 'mystery' ? 'tab active' : 'tab'}
-                      onClick={() => setActiveTab('mystery')}
-                    >
-                      Mystery Box
-                    </button>
-                    {userId === parentId && (
-                      <button
-                        className={activeTab === 'admin' ? 'tab active' : 'tab'}
-                        onClick={() => setActiveTab('admin')}
-                      >
-                        Admin
-                      </button>
-                    )}
-                  </div>
-    
-                  <div className="tab-content">
-                    {activeTab === 'notes' && <DailyNotes />}
-                    {activeTab === 'mystery' && <MysteryBox />}
-                    {activeTab === 'admin' && <AdminDashboard />}
-                  </div>
-    
-                  <button
-                    onClick={handleLogout}
-                    style={{
-                      marginTop: '1rem',
-                      padding: '0.5rem 1rem',
-                      backgroundColor: '#ff4d4f',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Logout
-                  </button>
-                </div>
-              )
-            }
-          />
-    
-          {/* 👧 Private child route */}
-          <Route path="/child" element={<ChildView />} />
-        </Routes>
+    <Routes>
+    {/* 👧 Dedicated child route */}
+    <Route path="/child" element={<ChildView />} />
+  
+    {/* 👨‍👧 Main parent route (with login + tabs) */}
+    <Route
+      path="/"
+      element={
+        !userId ? (
+          <Login onLogin={() => window.location.reload()} />
+        ) : (
+          <div className="app-container">
+            <h1 className="app-title">💖 DadDrop</h1>
+  
+            <div className="tab-buttons">
+              <button
+                className={activeTab === 'notes' ? 'tab active' : 'tab'}
+                onClick={() => setActiveTab('notes')}
+              >
+                Daily Notes
+              </button>
+              <button
+                className={activeTab === 'mystery' ? 'tab active' : 'tab'}
+                onClick={() => setActiveTab('mystery')}
+              >
+                Mystery Box
+              </button>
+              {userId === parentId && (
+                <button
+                  className={activeTab === 'admin' ? 'tab active' : 'tab'}
+                  onClick={() => setActiveTab('admin')}
+                >
+                  Admin
+                </button>
+              )}
+            </div>
+  
+            <div className="tab-content">
+              {activeTab === 'notes' && <DailyNotes />}
+              {activeTab === 'mystery' && <MysteryBox />}
+              {activeTab === 'admin' && <AdminDashboard />}
+            </div>
+  
+            <button
+              onClick={handleLogout}
+              style={{
+                marginTop: '1rem',
+                padding: '0.5rem 1rem',
+                backgroundColor: '#ff4d4f',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+              }}
+            >
+              Logout
+            </button>
+          </div>
+        )
+      }
+    />
+  </Routes>
       
     );
   
