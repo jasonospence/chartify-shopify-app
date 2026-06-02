@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Linkinbio</title>
+  </head>
+  <body>
+    <script>
+      (async () => {
+        const response = await fetch('./index.payload.gz.b64', { cache: 'no-store' });
+        if (!response.ok) throw new Error('Failed to fetch payload: ' + response.status);
+        const base64 = (await response.text()).trim();
+        const binary = Uint8Array.from(atob(base64), (char) => char.charCodeAt(0));
+        const stream = new Blob([binary]).stream().pipeThrough(new DecompressionStream('gzip'));
+        const html = await new Response(stream).text();
+        document.open();
+        document.write(html);
+        document.close();
+      })().catch((error) => {
+        document.body.innerHTML = '<pre style="font-family:system-ui;padding:24px;white-space:pre-wrap">Failed to load Linkinbio: ' + error.message + '</pre>';
+      });
+    </script>
+  </body>
+</html>
